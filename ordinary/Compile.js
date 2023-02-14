@@ -1,10 +1,46 @@
+CompileUtils = {
+  // 处理data
+  model(node, vm, exp) {
+    let upDateFn = this.updater['modelUpdater'];
+    upDateFn && upDateFn(node, this.getValue(vm, exp));
+  },
+  // 编译{{}}
+  text(node, vm, exp) {
+    let reg = /\{\{([^}]+)\}\}/g;
+    let value = exp.replace(reg, (...args) => {
+      return args[1];
+    });
+    // 使用textUpdater处理器
+    let upDateFn = this.updater['textUpdater'];
+    upDateFn && upDateFn(node, this.getValue(vm, value));
+  },
+  // 替换节点内容
+  updater: {
+    modelUpdater(node, value) {
+      node.value = value;
+    },
+    textUpdater(node, value) {
+      node.textContent = value;
+    }
+  },
+  getValue(vm, exp) {
+    let arr = exp.split('.');
+    // 生成数组，找vm.$data.massage.a
+    return arr.reduce((previousValue, currentValue) => {
+      return previousValue[currentValue];
+    }, vm.$data);
+  }
+};
+
 class Compile {
   constructor(el, vm) {
     this.el = this.isElementNode(el) ? el : document.querySelector(el);
     this.vm = vm;
     if (this.el) {
+      let Fragment = this.nodeToFragment(this.el);
       // 元素转为文档碎片
-      this.compile(this.nodeToFragment(this.el));
+      this.compile(Fragment);
+      this.el.appendChild(Fragment);
     }
   }
 
@@ -20,7 +56,7 @@ class Compile {
         this.compile(node);
       } else {
         // 文本节点
-        this.compileText();
+        this.compileText(node);
       }
     });
   }
@@ -33,20 +69,29 @@ class Compile {
       let attrName = e.name;
       if (this.idDirective(attrName)) {
         let attrValue = e.value;
+        let type = attrName.slice(2);
+        // 筛选指令
+        CompileUtils[type](node, this.vm, attrValue);
       }
     });
   }
 
   // 编译文本节点
   compileText(node) {
-
+    let text = node.textContent;
+    // 匹配大括号内的内容
+    let reg = /\{\{([^}]+)\}\}/g;
+    if (reg.test(text)) {
+      CompileUtils['text'](node, this.vm, text);
+    }
   }
 
-  // 判读 v- 指令
+  // 判断 v- 指令
   idDirective(name) {
     return name.includes('v-');
   }
 
+  // 节点转换为文档碎片
   nodeToFragment(el) {
     let docFragment = document.createDocumentFragment();
     let firstChild;
@@ -62,3 +107,5 @@ class Compile {
     return node.nodeType === 1;
   }
 }
+
+

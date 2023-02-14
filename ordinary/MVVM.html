@@ -9,10 +9,11 @@
 </head>
 <body>
 <div id="app">
-  <input type="text" v-model="message"/>
-  <h4>{{ message }}<span>123</span></h4>
+  <input type="text" v-model="message.a"/>
+  <h4>{{message.a}}</h4>
 
 </div>
+<script src="CompileUtils.js"></script>
 <script src="Compile.js"></script>
 <script src="MVVM.js"></script>
 <!--<script src="https://cdn.bootcdn.net/ajax/libs/Vue2Leaflet/2.7.1/components/LCircle.min.js"></script>-->
@@ -20,7 +21,9 @@
   const vm = new MVVM({
     el: '#app',
     data: {
-      message: 'data-message'
+      message: {
+        a: 'data内绑定的数据',
+      },
     }
   });
 </script>
