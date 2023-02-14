@@ -10,12 +10,14 @@
 <body>
 <div id="app">
   <input type="text" v-model="message"/>
-  <h4>{{ message }}</h4>
+  <h4>{{ message }}<span>123</span></h4>
+
 </div>
+<script src="Compile.js"></script>
 <script src="MVVM.js"></script>
 <!--<script src="https://cdn.bootcdn.net/ajax/libs/Vue2Leaflet/2.7.1/components/LCircle.min.js"></script>-->
 <script>
-  const vm = new Vue({
+  const vm = new MVVM({
     el: '#app',
     data: {
       message: 'data-message'
