@@ -7,14 +7,15 @@ class Observer {
     if (!data || typeof data !== 'object') {
       return
     }
+    // 遍历 key 对所有的 key 进行监听
     Object.keys(data).forEach((key) => {
       // 数据劫持
       this.defineReactive(data, key, data[key])
-      // 递归 监听内部的值
+      // 递归 穿透到对象内部
       this.observe(data[key])
     })
   }
-
+  // 数据劫持
   defineReactive(obj, key, value) {
     let _this = this
     let dep = new Dep()
@@ -28,11 +29,11 @@ class Observer {
         return value
       },
       set(newValue) {
-        // 值改变才设置
         if (newValue !== value) {
           // 新增加的值，也要增加getter和setter
           _this.observe(newValue)
           value = newValue
+          // 更新新值的时候发布
           dep.notify()
         }
       }

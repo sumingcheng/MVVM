@@ -14,8 +14,8 @@ class Watcher {
   }
 
   getValue(vm, exp) {
-    exp = exp.split('.')
-    return exp.reduce((prev, next) => {
+    let _exp = exp.split('.')
+    return _exp.reduce((prev, next) => {
       return prev[next]
     }, vm.$data)
   }

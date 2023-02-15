@@ -6,6 +6,7 @@ CompileUtils = {
     new Watcher(vm, exp, () => {
       upDateFn && upDateFn(node, this.getValue(vm, exp))
     })
+    // input 绑定事件处理函数
     node.addEventListener('input', (e) => {
       let newValue = e.target.value
       this.setValue(vm, exp, newValue)
@@ -15,6 +16,7 @@ CompileUtils = {
   // 设置视图的值
   setValue(vm, exp, value) {
     exp = exp.split('.')
+    // 取值
     return exp.reduce((prev, next, currentIndex) => {
       if (currentIndex === exp.length - 1) {
         return prev[next] = value
@@ -22,7 +24,8 @@ CompileUtils = {
       return prev[next]
     }, vm.$data)
   },
-  // 编译{{}}
+
+  // 处理 {{ }} 内的值
   text(node, vm, exp) {
     // 使用textUpdater处理器
     let upDateFn = this.updater['textUpdater']
@@ -36,6 +39,7 @@ CompileUtils = {
     })
     upDateFn && upDateFn(node, value)
   },
+
   getTextValue(vm, exp) {
     let reg = /\{\{([^}]+)\}\}/g
     return exp.replace(reg, (...args) => {

@@ -6,6 +6,7 @@ class Compile {
       let Fragment = this.nodeToFragment(this.el)
       // 元素转为文档碎片
       this.compile(Fragment)
+      // 挂载
       this.el.appendChild(Fragment)
     }
   }
@@ -36,7 +37,7 @@ class Compile {
       if (this.idDirective(attrName)) {
         let attrValue = e.value
         let type = attrName.slice(2)
-        // 筛选指令
+        // 筛选指令，此处可以新增其他指令
         CompileUtils[type](node, this.vm, attrValue)
       }
     })
