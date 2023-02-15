@@ -10,13 +10,13 @@ class Observer {
     Object.keys(data).forEach((key) => {
       // 数据劫持
       this.defineReactive(data, key, data[key]);
-      // 监听内部的值
+      // 递归 监听内部的值
       this.observe(data[key]);
     });
-    console.log(data);
   }
 
   defineReactive(obj, key, value) {
+    let _this = this;
     Object.defineProperty(obj, key, {
       enumerable: true,
       configurable: true,
@@ -27,6 +27,8 @@ class Observer {
       set(newValue) {
         // 值改变才设置
         if (newValue !== value) {
+          // 新增加的值，也要增加getter和setter
+          _this.observe(newValue);
           value = newValue;
         }
       }
