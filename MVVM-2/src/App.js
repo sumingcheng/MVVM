@@ -1,4 +1,4 @@
-import {render,createApp} from '../MVVM/render'
+import { useDOM, useReactive } from '../index'
 
 function App() {
   const state = useReactive({
@@ -33,3 +33,8 @@ function App() {
     }
   }
 }
+
+useDOM(
+    App(),
+    document.querySelector('#app')
+)

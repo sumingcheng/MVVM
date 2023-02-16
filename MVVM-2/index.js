@@ -1,2 +1,4 @@
 export { useReactive } from './MVVM/reactive'
-export { render } from './MVVM/render'
+export { useDOM } from './MVVM/render'
+export { eventFormat } from './MVVM/compiler/event'
+export { stateFormat } from './MVVM/compiler/state'
