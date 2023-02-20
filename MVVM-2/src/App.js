@@ -3,17 +3,20 @@ import { useDOM, useReactive } from '../index'
 function App() {
   const state = useReactive({
     count: 0,
-    name: 'yyds'
+    name: 'HHHHHHHHHHHHH'
   })
 
   const add = (num) => {
+    console.log(num)
     state.count += num
   }
   const minus = (num) => {
+    console.log(num)
     state.count -= num
   }
 
   const changeName = (name) => {
+    console.log(name)
     state.name = name
   }
 
@@ -23,10 +26,10 @@ function App() {
     <h2>{{ name }}</h2>
     <button onClick="add(2)">+</button>
     <button onClick="minus(1)">-</button>
-    <button onClick="changeName('YYDS')>ChangeName</button>
+    <button onClick="changeName('YYDS')">ChangeName</button>
     `,
     state,
-    method: {
+    methods: {
       add,
       minus,
       changeName
