@@ -7,16 +7,13 @@ function App() {
   })
 
   const add = (num) => {
-    console.log(num)
     state.count += num
   }
   const minus = (num) => {
-    console.log(num)
     state.count -= num
   }
 
   const changeName = (name) => {
-    console.log(name)
     state.name = name
   }
 

@@ -31,7 +31,6 @@ export function bindEvent(methods) {
           const fnName = event.handler.match(reg_fnName)[1]
           const arg = checkType(event.handler.match(reg_arg)[1])
           //   找到函数 执行
-          console.log(methods)
           methods[fnName](arg)
         }, false)
       }
