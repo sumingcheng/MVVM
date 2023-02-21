@@ -19,8 +19,10 @@ export function randomNum() {
 
 export function checkType(str) {
   // 字符串
+
   if (reg_chac_str.test(str)) {
-    return str.reduce(reg_str, '')
+    console.log(str.replace(reg_str, ''))
+    return str.replace(reg_str, '')
   }
   // 布尔
   switch (str) {

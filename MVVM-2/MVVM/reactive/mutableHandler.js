@@ -1,5 +1,7 @@
 import { hasOwnProperty, isEqual, isObject } from '../shared/utils'
 import { useReactive } from './index'
+import { update } from '../render'
+import { statePool } from '../compiler/state'
 
 const get = createGetter()
 const set = createSetter()
@@ -23,7 +25,7 @@ function createSetter() {
 
     if (!isKeyExist) {
     } else if (!isEqual(value, oldValue)) {
-      //   view. update
+      update(statePool, key, value)
     }
     return res
   }

@@ -29,6 +29,7 @@ export function bindEvent(methods) {
       if (_mark === event.mark) {
         oItem.addEventListener(event.type, function () {
           const fnName = event.handler.match(reg_fnName)[1]
+          console.log(event.handler.match(reg_arg)[1])
           const arg = checkType(event.handler.match(reg_arg)[1])
           //   找到函数 执行
           methods[fnName](arg)

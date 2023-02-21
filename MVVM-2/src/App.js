@@ -23,7 +23,7 @@ function App() {
     <h2>{{ name }}</h2>
     <button onClick="add(2)">+</button>
     <button onClick="minus(1)">-</button>
-    <button onClick="changeName('YYDS')">ChangeName</button>
+    <button onClick="changeName('字符串进入')">ChangeName</button>
     `,
     state,
     methods: {
@@ -38,3 +38,6 @@ useDOM(
     App(),
     document.querySelector('#app')
 )
+
+
+
